@@ -10,12 +10,11 @@ const userSchema = new mongoose.Schema({
   password: { type: String, required: true },
   passwordConfirmation: { type: String, required: true },
   role: { type: String, required: true },
-  userAgent: { type: string, required: true },
 });
 
 userSchema.methods.generateAuthToken = function () {
   const token = jwt.sign({ _id: this._id }, process.env.JWTPRIVATEKEY, {
-    expiresIn: "7d",
+    expiresIn: "1d",
   });
   return token;
 };
@@ -32,7 +31,6 @@ const validate = (data) => {
       .required()
       .label("Password Confirmation"),
     role: Joi.string().required().label("Role"),
-    userAgent: Joi.string().required().label("User Agent"),
     terms: Joi.boolean().required().label("Term Agreement"),
   });
   return schema.validate(data);

@@ -26,8 +26,11 @@ router.post("/", async (req, res) => {
       password: hashPassword,
       passwordConfirmation: hashPasswordConfirmation,
     }).save();
-    
-    
+
+    res.status(200).send({
+      status: 200,
+      message: "Registered successfully",
+    });
   } catch (error) {
     res.status(500).send({ message: "Internal Server Error" });
   }
