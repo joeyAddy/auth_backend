@@ -22,7 +22,7 @@ router.post("/", async (req, res) => {
         .then((result) => {
           console.log(result);
           res.status(201).send({
-            message: "Updated Shopper requirements successfully",
+            message: "Updated Dispatcher requirements successfully",
           });
         })
         .catch((error) => {

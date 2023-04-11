@@ -29,12 +29,4 @@ const validate = (data) => {
   return schema.validate(data);
 };
 
-// {
-//     "quantity":"1",
-//     "user":"6424cfbc7e6ab7d779ffe49b",
-//     "shop":"6434a0f9b2330a74996c6596",
-//     "dispatcher":"6434a90e56f45b2090ea4e60",
-//     "parcel":"6434a90e56f45b2090ea4e60"
-// }
-
 module.exports = { Dispatcher, validate };
