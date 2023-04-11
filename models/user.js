@@ -3,14 +3,17 @@ const jwt = require("jsonwebtoken");
 const Joi = require("joi");
 const passwordComplexity = require("joi-password-complexity");
 
-const userSchema = new mongoose.Schema({
-  firstName: { type: String, required: true },
-  lastName: { type: String, required: true },
-  email: { type: String, required: true },
-  password: { type: String, required: true },
-  passwordConfirmation: { type: String, required: true },
-  role: { type: String, required: true },
-});
+const userSchema = new mongoose.Schema(
+  {
+    firstName: { type: String, required: true },
+    lastName: { type: String, required: true },
+    email: { type: String, required: true },
+    password: { type: String, required: true },
+    passwordConfirmation: { type: String, required: true },
+    role: { type: String, required: true },
+  },
+  { timestamps: true }
+);
 
 userSchema.methods.generateAuthToken = function () {
   const token = jwt.sign({ _id: this._id }, process.env.JWTPRIVATEKEY, {
@@ -19,7 +22,7 @@ userSchema.methods.generateAuthToken = function () {
   return token;
 };
 
-const User = mongoose.model("user", userSchema);
+const User = mongoose.model("User", userSchema);
 
 const validate = (data) => {
   const schema = Joi.object({
@@ -31,7 +34,7 @@ const validate = (data) => {
       .required()
       .label("Password Confirmation"),
     role: Joi.string().required().label("Role"),
-    terms: Joi.boolean().required().label("Term Agreement"),
+    terms: Joi.boolean().label("Term Agreement"),
   });
   return schema.validate(data);
 };

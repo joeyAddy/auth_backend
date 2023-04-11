@@ -36,4 +36,21 @@ router.post("/", async (req, res) => {
   }
 });
 
+router.get("/", async (req, res) => {
+  try {
+    const users = await User.find();
+
+    if (users.length > 0) {
+      res.status(200).send({
+        status: 200,
+        data: users,
+      });
+    } else {
+      res.status(200).json({ message: "No User at the moment" });
+    }
+  } catch (error) {
+    res.status(500).json({ message: "Internal Server Error" });
+  }
+});
+
 module.exports = router;
