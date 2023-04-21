@@ -23,6 +23,7 @@ router.post("/", async (req, res) => {
     const token = user.generateAuthToken();
 
     const data = {
+      _id: user._id,
       firstName: user.firstName,
       lastName: user.lastName,
       role: user.role,

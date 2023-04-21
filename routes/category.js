@@ -8,7 +8,7 @@ router.post("/", async (req, res) => {
     return res.status(400).send({ message: error.details[0].message });
   } else {
     const category = new Categories({
-      id: new mongoose.Types.ObjectId(),
+      _id: new mongoose.Types.ObjectId(),
       name: req.body.name,
     });
     category

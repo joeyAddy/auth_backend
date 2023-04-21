@@ -3,7 +3,6 @@ const mongoose = require("mongoose");
 
 const orderSchema = new mongoose.Schema(
   {
-    id: { type: mongoose.Schema.Types.ObjectId, required: true },
     parcel: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "Parcel",
@@ -16,11 +15,11 @@ const orderSchema = new mongoose.Schema(
       ref: "Dispatcher",
       required: true,
     },
-    shop: {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: "Shop",
-      required: true,
-    },
+    // shop: {
+    //   type: mongoose.Schema.Types.ObjectId,
+    //   ref: "Shop",
+    //   required: true,
+    // },
     status: { type: String, required: true, default: "processing" },
   },
   { timestamps: true }
@@ -34,7 +33,7 @@ const validate = (data) => {
     quantity: Joi.number().required().label("Quantity"),
     user: Joi.string().required().label("User"),
     dispatcher: Joi.string().required().label("Dispatcher"),
-    shop: Joi.string().required().label("Shop"),
+    // shop: Joi.string().required().label("Shop"),
     status: Joi.string().label("Status"),
   });
   return schema.validate(data);

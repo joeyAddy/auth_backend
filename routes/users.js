@@ -1,4 +1,5 @@
 const router = require("express").Router();
+const { default: mongoose } = require("mongoose");
 const { User, validate } = require("../models/user");
 const bcrypt = require("bcrypt");
 
@@ -23,6 +24,7 @@ router.post("/", async (req, res) => {
 
     await new User({
       ...req.body,
+      _id: new mongoose.Types.ObjectId(),
       password: hashPassword,
       passwordConfirmation: hashPasswordConfirmation,
     }).save();
@@ -51,6 +53,26 @@ router.get("/", async (req, res) => {
   } catch (error) {
     res.status(500).json({ message: "Internal Server Error" });
   }
+});
+
+router.get("/:userId", async (req, res) => {
+  const user = await User.findById({ _id: req.params.userId })
+    .exec()
+    .then((result) => {
+      if (result) {
+        res.status(200).json({
+          status: 200,
+          data: result,
+        });
+      } else {
+        res.status(404).json({ message: "User with ID does not exist found!" });
+      }
+    })
+    .catch((error) => {
+      res
+        .status(500)
+        .json({ message: "Internal Server Error", error: error.message });
+    });
 });
 
 module.exports = router;

@@ -21,9 +21,8 @@ router.post("/", async (req, res) => {
 
     if (user) {
       const order = new Order({
-        id: new mongoose.Types.ObjectId(),
         user: req.body.user,
-        shop: req.body.shop,
+        // shop: req.body.shop,
         parcel: req.body.parcel,
         quantity: req.body.quantity,
         dispatcher: req.body.dispatcher,
