@@ -111,4 +111,22 @@ router.get("/dispatcher/:dispatcherID", async (req, res) => {
   }
 });
 
+router.patch("/status/:parcelId", async (req, res) => {
+  const id = req.params.parcelId;
+  Dispatcher.update({ _id: id }, { $set: { status: req.body.status } })
+    .exec()
+    .then((result) => {
+      res.status(200).json({
+        status: 200,
+        data: result,
+        message: "Status updated sucessfully",
+      });
+    })
+    .catch((error) => {
+      res
+        .status(500)
+        .json({ message: "Internal Server Error", error: error.message });
+    });
+});
+
 module.exports = router;

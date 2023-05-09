@@ -94,6 +94,54 @@ router.get("/:dispatcherID", async (req, res) => {
     });
 });
 
+router.get("/location/:dispatcherID", async (req, res) => {
+  await Dispatcher.findById({
+    _id: req.params.dispatcherID,
+  })
+    .exec()
+    .then((result) => {
+      if (result) {
+        res.status(200).json({
+          status: 200,
+          data: result.location,
+        });
+      } else {
+        res.status(404).json({ message: "Dispatcher with ID does not exist!" });
+      }
+    })
+
+    .catch((error) => {
+      res
+        .status(500)
+        .json({ message: "Internal Server Error", error: error.message });
+    });
+});
+
+router.patch("/location/:dispatcherID", async (req, res) => {
+  const id = req.params.dispatcherID;
+  Dispatcher.updateOne({ _id: id }, { $set: { location: req.body.location } })
+    .exec()
+    .then((result) => {
+      if (result) {
+        const dispatcher = Dispatcher.findById({
+          _id: req.params.dispatcherID,
+        });
+        res.status(200).json({
+          status: 200,
+          data: dispatcher.location,
+          message: "Location updated sucessfully",
+        });
+      } else {
+        res.status(404).json({ message: "Dispatcher with ID does not exist!" });
+      }
+    })
+    .catch((error) => {
+      res
+        .status(500)
+        .json({ message: "Internal Server Error", error: error.message });
+    });
+});
+
 router.get("/user/:userID", async (req, res) => {
   const dispacthcer = await Dispatcher.findOne({
     user: req.params.userID,
