@@ -146,6 +146,7 @@ router.get("/user/:userID", async (req, res) => {
   const dispacthcer = await Dispatcher.findOne({
     user: req.params.userID,
   })
+    .populate("user")
     .exec()
     .then((result) => {
       if (result) {

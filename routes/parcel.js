@@ -113,13 +113,14 @@ router.get("/dispatcher/:dispatcherID", async (req, res) => {
 
 router.patch("/status/:parcelId", async (req, res) => {
   const id = req.params.parcelId;
-  Dispatcher.update({ _id: id }, { $set: { status: req.body.status } })
+  const status =  req.body.status
+  Parcel.updateOne({ _id: id }, { $set: { status: status } })
     .exec()
     .then((result) => {
       res.status(200).json({
         status: 200,
         data: result,
-        message: "Status updated sucessfully",
+        message: `Status ${status} sucessfully`,
       });
     })
     .catch((error) => {
