@@ -43,7 +43,7 @@ app.use(passport.session());
 
 app.use(
   cors({
-    origin: "http://localhost:3000",
+    origin: "https://k-track.netlify.app",
     // "https://k-track.netlify.app",
     methods: "GET,POST,PATCH,DELETE",
     // credentials: true,
