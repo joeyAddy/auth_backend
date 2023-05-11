@@ -120,7 +120,7 @@ router.patch("/status/:parcelId", async (req, res) => {
       res.status(200).json({
         status: 200,
         data: result,
-        message: `Status ${status} sucessfully`,
+        message: `${status} Status sucessfully`,
       });
     })
     .catch((error) => {
