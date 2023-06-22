@@ -49,7 +49,7 @@ const orderLocations = {};
 
 // Socket.IO connection
 io.on("connection", (socket) => {
-  console.log("A user connected");
+  console.log("A user connected", socket.id);
 
   socket.on("joinOrder", (orderId) => {
     socket.join(orderId);
@@ -59,7 +59,10 @@ io.on("connection", (socket) => {
   socket.on("updateLocation", (data) => {
     console.log("Updated", data);
     const { dispatcherId, location } = data;
-    Dispatcher.updateOne({ _id: id }, { $set: { location: location } })
+    Dispatcher.updateOne(
+      { _id: dispatcherId },
+      { $set: { location: location } }
+    )
       .exec()
       .then((result) => {
         if (result) {
