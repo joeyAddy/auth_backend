@@ -3,6 +3,7 @@ const { default: mongoose } = require("mongoose");
 const { User, validate } = require("../models/user");
 const bcrypt = require("bcrypt");
 
+// Add new user
 router.post("/", async (req, res) => {
   try {
     const { error } = validate(req.body);
